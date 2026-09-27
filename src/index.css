@@ -1,0 +1,324 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-base-bg text-slate-200 font-body antialiased;
+  background-image: radial-gradient(1200px 600px at 80% -10%, rgba(34, 211, 238, 0.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(167, 139, 250, 0.05), transparent 55%);
+  background-attachment: fixed;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #23282e;
+  border-radius: 8px;
+  border: 2px solid #0a0c0e;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #313941;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input[type='date'],
+input[type='time'],
+input[type='number'] {
+  color-scheme: dark;
+}
+
+input[type='range'] {
+  accent-color: #22d3ee;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-base-border bg-base-card shadow-card;
+  }
+  .glass {
+    background: rgba(17, 20, 23, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-base-border bg-base-card2 px-3.5 py-2 text-sm font-medium text-slate-200 transition-all duration-150 hover:border-slate-600 hover:bg-[#1d2328] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply border-cyan-400/30 bg-cyan-400/10 text-cyan-300 hover:border-cyan-400/60 hover:bg-cyan-400/20;
+  }
+  .btn-danger {
+    @apply border-rose-400/30 bg-rose-400/10 text-rose-300 hover:border-rose-400/60 hover:bg-rose-400/20;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent hover:border-base-border hover:bg-base-card2;
+  }
+  .input {
+    @apply w-full rounded-xl border border-base-border bg-[#0d1013] px-3 py-2 text-sm text-slate-200 placeholder-slate-600 outline-none transition-colors focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/10;
+  }
+  .label {
+    @apply mb-1 block text-xs font-medium uppercase tracking-wider text-slate-500;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-base-border bg-base-card2 px-2.5 py-1 text-xs font-medium text-slate-300;
+  }
+  .chip-ok {
+    @apply border-emerald-400/25 bg-emerald-400/10 text-emerald-300;
+  }
+  .chip-warn {
+    @apply border-amber-400/25 bg-amber-400/10 text-amber-300;
+  }
+  .nav-item {
+    @apply flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-base-card2 hover:text-slate-200;
+  }
+  .nav-item-active {
+    @apply bg-cyan-400/10 text-cyan-300;
+  }
+}
+
+/* ============ 3D system ============ */
+
+.tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+/* Floating 3D orb (hero centerpiece) */
+.orb-scene {
+  perspective: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb-float {
+  position: relative;
+  width: 82%;
+  height: 82%;
+  transform-style: preserve-3d;
+  animation: orbFloat 7s ease-in-out infinite;
+}
+
+.orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 26%),
+    radial-gradient(circle at 68% 76%, rgba(167, 139, 250, 0.5), transparent 46%),
+    radial-gradient(circle at 24% 70%, rgba(251, 113, 133, 0.42), transparent 44%),
+    radial-gradient(circle at 76% 22%, rgba(34, 211, 238, 0.5), transparent 42%),
+    radial-gradient(circle at 50% 50%, #1b2b33, #0b1216 72%);
+  box-shadow:
+    inset -14px -18px 40px rgba(0, 0, 0, 0.6),
+    inset 10px 12px 26px rgba(255, 255, 255, 0.08),
+    0 0 60px rgba(34, 211, 238, 0.22),
+    0 0 120px rgba(167, 139, 250, 0.16);
+  transform: rotateX(8deg);
+  overflow: hidden;
+}
+
+.orb-band {
+  position: absolute;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: transparent;
+  opacity: 0.5;
+  filter: blur(1px);
+}
+.orb-band.b1 {
+  inset: 12% 6%;
+  border-width: 3px;
+  border-top-color: rgba(34, 211, 238, 0.8);
+  animation: orbSpin 9s linear infinite;
+}
+.orb-band.b2 {
+  inset: 30% 20%;
+  border-width: 2px;
+  border-top-color: rgba(251, 191, 36, 0.75);
+  animation: orbSpin 6s linear infinite reverse;
+}
+.orb-band.b3 {
+  inset: 44% 12%;
+  border-width: 2px;
+  border-top-color: rgba(52, 211, 153, 0.6);
+  animation: orbSpin 12s linear infinite;
+}
+
+.orb-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 197, 255, 0.25);
+}
+.orb-ring.r1 {
+  inset: -8%;
+  transform: rotateX(72deg);
+  animation: orbPulse 4.5s ease-in-out infinite;
+}
+.orb-ring.r2 {
+  inset: -16%;
+  border-color: rgba(167, 139, 250, 0.18);
+  transform: rotateX(65deg) rotateZ(28deg);
+  animation: orbPulse 4.5s ease-in-out infinite 0.8s;
+}
+
+.orb-dot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0.5px);
+  box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.25);
+}
+.orb-dot.d1 { width: 7px; height: 7px; left: 24%; top: 34%; background: #67e8f9; animation: orbFloat 5s ease-in-out infinite; }
+.orb-dot.d2 { width: 5px; height: 5px; left: 66%; top: 26%; background: #fbbf24; animation: orbFloat 6.5s ease-in-out infinite 1s; }
+.orb-dot.d3 { width: 6px; height: 6px; left: 58%; top: 64%; background: #fb7185; animation: orbFloat 5.5s ease-in-out infinite 0.5s; }
+.orb-dot.d4 { width: 4px; height: 4px; left: 36%; top: 72%; background: #a78bfa; animation: orbFloat 7s ease-in-out infinite 1.5s; }
+
+.orb-shadow {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -14%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55), transparent 70%);
+  animation: shadowPulse 7s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate3d(0, -6px, 0) rotateZ(-1.5deg); }
+  50% { transform: translate3d(0, 8px, 0) rotateZ(1.5deg); }
+}
+@keyframes orbSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes orbPulse {
+  0%, 100% { opacity: 0.35; transform: rotateX(72deg) scale(1); }
+  50% { opacity: 0.8; transform: rotateX(72deg) scale(1.06); }
+}
+@keyframes shadowPulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.5; }
+  50% { transform: scaleX(0.86); opacity: 0.32; }
+}
+
+/* Hero fire gradient text (Web3 style) */
+.text-fire {
+  background: linear-gradient(92deg, #f0abfc 0%, #fb7185 38%, #fb923c 68%, #fbbf24 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s linear infinite;
+}
+
+/* Subtle 3D grid backdrop */
+.bg-3d-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+}
+
+/* Ticker strip */
+.ticker {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 28s linear infinite;
+}
+.ticker-mask {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-float, .orb-band, .orb-ring, .orb-dot, .ticker, .text-fire {
+    animation: none !important;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.fade-in {
+  animation: fadeUp 0.35s ease-out both;
+}
+
+@keyframes checkPop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.6;
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-check {
+  animation: checkPop 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #e2e8f0 25%, #67e8f9 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
