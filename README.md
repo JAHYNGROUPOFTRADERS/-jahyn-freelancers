@@ -61,3 +61,4 @@ src/
 - Each streak is independent — one missed habit never destroys overall progress.
 - Weight, calories and spending are manual entries; treat all numbers as trends, not verdicts.
 - "Reset all data" asks for explicit confirmation before wiping.
+# Repository-name-jahyn-freelancers
